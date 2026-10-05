@@ -1,0 +1,43 @@
+# Machine-specific config - points at the (uncommitted) applicant-package data folder
+.Renviron
+
+# Raw input data is never stored inside this repo (DATA_ROOT lives outside it,
+# see config.R) - these patterns are defensive, in case a local copy is ever
+# placed here by mistake.
+/data/
+/applicant-package/
+*.h5
+*.h5ad
+*.mtx
+*.mtx.gz
+raw_feature_bc_matrix/
+filtered_feature_bc_matrix/
+
+# Large intermediate checkpoints - the pipeline's real checkpoints live
+# outside the repo (tools::R_user_dir("ccrcc_ecm_analysis","cache"), see
+# config.R's SCRATCH_DIR), but ignore any that land under checkpoints/ or
+# results/ anyway, and any stray large binary.
+checkpoints/*.rds
+results/**/*.rds
+*.rds
+
+# R session / working-directory artifacts
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# Knitting artifacts / caches
+*_cache/
+*_files/
+analysis.html
+analysis.md
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Catch-all: anything over 50 MB should not be committed (GitHub's own hard
+# limit is 100 MB; this repo's own outputs are tables/figures, none of which
+# should approach this - any file this large landing here is almost always
+# an accidental checkpoint or raw-data copy).
