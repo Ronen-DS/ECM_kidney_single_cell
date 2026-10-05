@@ -49,8 +49,7 @@ run_stage <- function(stage_name, scripts, checkpoint_path, run_from_scratch = F
 Specification: `Report.Ronen.pdf` (this repository's root) is the report this
 notebook reproduces. Thresholds and settings are read from `params.yaml` (not
 hard-coded below). See `README.md` for the full Records index and for what
-is intentionally excluded (`exploratory/`, and Harmony/C-reference-mapping,
-not included in this repository at all).
+is intentionally excluded (`exploratory/`).
 
 # 01 Load + QC
 
