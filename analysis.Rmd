@@ -1,0 +1,207 @@
+---
+title: "ccRCC ECM multi-cohort analysis"
+author: "Ronen Levy"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## Set TRUE to force every stage to recompute from source data, ignoring any
+## existing checkpoint. FALSE (default) reuses a stage's checkpoint when
+## present and only (re)runs a stage whose terminal checkpoint is missing.
+run_from_scratch <- FALSE
+
+repo <- normalizePath(".")
+readRenviron(file.path(repo, ".Renviron"))
+source(file.path(repo, "config.R"))
+
+library(yaml)
+params <- yaml::read_yaml(file.path(repo, "params.yaml"))
+
+dir.create(file.path(repo, "checkpoints"), showWarnings = FALSE, recursive = TRUE)
+
+#' Runs a stage's script sequence (each sourced via Rscript, so each script's
+#' own commandArgs()-based repo-root detection still works unchanged) unless
+#' `checkpoint_path` already exists and run_from_scratch is FALSE. This is
+#' the ONLY orchestration logic added here - every analytical step is the
+#' existing, already-validated script in R/, run unmodified via source().
+run_stage <- function(stage_name, scripts, checkpoint_path, run_from_scratch = FALSE) {
+  checkpoint_exists <- file.exists(checkpoint_path)
+  if (!run_from_scratch && checkpoint_exists) {
+    cat(sprintf("[%s] checkpoint found (%s) - skipping, reusing existing outputs.\n", stage_name, checkpoint_path))
+    return(invisible(NULL))
+  }
+  cat(sprintf("[%s] checkpoint missing or run_from_scratch=TRUE - running %d script(s)...\n", stage_name, length(scripts)))
+  for (s in scripts) {
+    cat(sprintf("  source(R/%s)\n", s))
+    source(file.path(repo, "R", s), local = new.env())
+  }
+  if (!file.exists(checkpoint_path)) {
+    warning(sprintf("[%s] finished but expected checkpoint still missing: %s", stage_name, checkpoint_path))
+  } else {
+    cat(sprintf("[%s] done.\n", stage_name))
+  }
+}
+```
+
+Specification: `ECM_ccRCC_report_v4_tracked.docx` is the report this notebook
+reproduces. Thresholds and settings are read from `params.yaml` (not
+hard-coded below). See `README.md` for the full Records index and for what
+is intentionally excluded (`exploratory/`, and Harmony/C-reference-mapping,
+not included in this repository at all).
+
+# 01 Load + QC
+
+Builds each cohort's raw Seurat checkpoint from source files, characterizes
+raw per-nucleus/per-cell QC, derives cohort C's %MT/non-MT-UMI thresholds,
+applies the per-cohort QC filter (`params.yaml$qc`), collapses duplicate
+gene symbols (A, C) onto a shared gene-identifier space, normalizes each
+cohort, and runs the population-retention and 5%-MT-sensitivity checks plus
+the combined QC figure (Fig. 1, Table 1).
+
+```{r stage-01-load-qc}
+run_stage(
+  "01-load-qc",
+  scripts = c(
+    "run_load_cohort_a.R", "build_seurat_a.R",
+    "build_seurat_b.R",
+    "build_seurat_c.R",
+    "qc_cohort_a.R", "qc_cohort_b.R", "qc_cohort_c.R",
+    "derive_c_mt_threshold.R",
+    "filter_cohort_a.R", "filter_cohort_b.R", "filter_cohort_c.R",
+    "collapse_duplicate_symbols.R",
+    "recollapse_cohort_c.R",
+    "preprocess_cohort_a.R", "preprocess_cohort_b.R", "preprocess_cohort_c.R",
+    "qc_population_retention.R", "qc_population_retention_A5pct.R",
+    "qc_combined_ABC_figure.R"
+  ),
+  checkpoint_path = file.path(SCRATCH_DIR, "seurat_C_normalized.rds"),
+  run_from_scratch = run_from_scratch
+)
+```
+
+# 02 Integration
+
+2,000 integration features selected jointly across A/B/C; RPCA anchor-based
+joint integration (30 dims, k.weight 30); clustering and UMAP on 10 PCs.
+Produces the unintegrated-baseline and RPCA-integrated UMAPs (Fig. 2a-b).
+Clustering is swept at resolution 0.3, 0.5 and 1.0 for simplicity (kept
+together in one stage); only resolution=1 is used downstream (Section 03,
+cohort C labeling) and reported in the text - 0.3/0.5 are included as
+supporting context for that choice, not separately reported.
+
+```{r stage-02-integration}
+run_stage(
+  "02-integration",
+  scripts = c(
+    "prepare_integration_abc.R",
+    "baseline_abc_umap.R",
+    "prepare_rpca_pca_abc.R",
+    "find_rpca_anchors_abc.R",
+    "integrate_rpca_data_abc.R",
+    "rpca_pca_only_abc.R",
+    "rpca_umap_only_abc.R",
+    "rpca_clusters_umap_abc.R",   # resolution 0.5 and 1.0
+    "rpca_cluster_res03_abc.R",   # adds resolution 0.3 to the same sweep
+    "crosstab_res03_population_abc.R"  # resolution 0.3 purity, for context only
+  ),
+  checkpoint_path = file.path(repo, "results", "tables", "integration", "ABC_res0.3_cluster_purity.tsv"),
+  run_from_scratch = run_from_scratch
+)
+```
+
+# 03 Cohort C labeling
+
+A/B populations come from the harmonized `label_mapping.tsv`. Each C cell
+receives the majority A/B population of its resolution=1 cluster when that
+label covers >=80% of >=50 A/B cells, else Unresolved. Labels are checked
+against canonical markers outside the ECM panel (Fig. 2c).
+
+```{r stage-03-c-labeling}
+run_stage(
+  "03-c-labeling",
+  scripts = c(
+    "annotate_c_by_cluster_majority.R",
+    "verify_annotation_markers.R",
+    "plot_abc_umap_by_population.R"
+  ),
+  checkpoint_path = file.path(SCRATCH_DIR, "merged_ABC_annotated.rds"),
+  run_from_scratch = run_from_scratch
+)
+```
+
+# 04 ECM overview + population choice
+
+ECM-panel expression across major populations - pooled, per-cohort (Fig. 3a)
+and per-condition - plus the paired-donor coverage (>=10, >=20 cells in both
+Tumor and Adjacent) per population x cohort that motivates choosing
+Endothelial as the only population with consistent identity and paired
+coverage in all three cohorts.
+
+```{r stage-04-ecm-overview-population-choice}
+run_stage(
+  "04-ecm-overview-population-choice",
+  scripts = c(
+    "ecm_panel_by_population.R",
+    "ecm_panel_by_population_per_cohort.R",
+    "ecm_panel_by_population_per_condition.R",
+    "ecm_population_choice_coverage.R"
+  ),
+  checkpoint_path = file.path(repo, "results", "ecm_population_choice", "paired_coverage_ge20.tsv"),
+  run_from_scratch = run_from_scratch
+)
+```
+
+# 05 Pseudobulk models + robustness
+
+Raw UMI counts summed per donor x condition within Endothelial cells
+(pseudobulk, >=20 cells/sample), TMM-normalized (edgeR) and modeled with
+limma-voom (cohort as covariate, donor as a duplicateCorrelation block; a
+strictly paired `~donor + condition` model on the 13 paired donors) - A
+only, B only, C only, A+B, A+B+C, paired-only (Table 2). Robustness check:
+Endothelial-labeled cells carrying any count of a mesenchymal marker
+(`params.yaml$mesenchymal_markers`) are removed and every model refitted
+unchanged.
+
+```{r stage-05-pseudobulk-models-robustness}
+run_stage(
+  "05-pseudobulk-models-robustness",
+  scripts = c(
+    "ecm_endothelial_pseudobulk_build.R",
+    "ecm_endothelial_models.R",
+    "ecm_endothelial_mesenchymal_flag.R",
+    "ecm_endothelial_clean_models.R",
+    "ecm_endothelial_add_Aonly_clean.R"
+  ),
+  checkpoint_path = file.path(repo, "results", "ecm_endothelial", "clean", "before_after_comparison.tsv"),
+  run_from_scratch = run_from_scratch
+)
+```
+
+# 06 Linked modalities (cohort A)
+
+Validates donor/specimen/aliquot correspondence against the supplied
+multimodal crosswalk (cohort A only - the only cohort with linked bulk
+RNA/proteomics) and compares the Tumor-vs-Adjacent direction of the chosen
+ECM finding (Endothelial SPARC/FN1) against linked bulk RNA and protein,
+within donor, per assay (Table 3).
+
+```{r stage-06-linked-modalities}
+run_stage(
+  "06-linked-modalities",
+  scripts = c(
+    "multimodal_matched_subset.R",
+    "multimodal_ecm_direction_check.R"
+  ),
+  checkpoint_path = file.path(repo, "results", "multimodal", "ecm_direction_paired_summary.tsv"),
+  run_from_scratch = run_from_scratch
+)
+```
+
+# Session info
+
+```{r session-info}
+sessionInfo()
+```
