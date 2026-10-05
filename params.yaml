@@ -1,0 +1,60 @@
+# params.yaml - every threshold/setting used by analysis.Rmd, read at the
+# top of the notebook (no hard-coded values in the notebook chunks).
+# Values below are transcribed from the applied pipeline (R/filter_cohort_*.R,
+# R/integration_utils.R, R/annotate_c_by_cluster_majority.R,
+# R/ecm_endothelial_*.R, R/qc_combined_ABC_figure.R), matching the final
+# report (Report.Ronen.pdf) exactly. This file does not
+# change any threshold - it documents what was already applied.
+
+qc:
+  A:
+    n_feature_min: 500          # nFeature_RNA > 500
+    n_feature_max: 4500         # nFeature_RNA < 4500
+    n_count_min: 1000           # nCount_RNA > 1000
+    percent_mt_max: 2           # percent_mt < 2
+    sensitivity_percent_mt_max: 5   # 5% MT sensitivity check (qc_population_retention_A5pct.R)
+  B:
+    n_feature_min: 500
+    n_feature_max: 4500
+    n_count_min: 1000
+    percent_mt_max: 10
+  C:
+    n_feature_min: 100
+    n_feature_max: 400
+    non_mt_umis_min: 150        # nCount * (1 - percent_mt/100) > 150, supersedes a raw nCount floor
+    percent_mt_max: 95
+  min_specimen_cells: 20        # a specimen is dropped if its POST-cell-filter count is <= 20
+                                 # (filter_seurat_cohort() keeps specimens with count > 20)
+
+integration:
+  n_integration_features: 2000  # SelectIntegrationFeatures(), selected jointly across A, B, C
+  method: RPCA                  # Seurat v5 FindIntegrationAnchors(reduction="rpca") + IntegrateData()
+  anchor_dims: 30               # dims used for FindIntegrationAnchors / IntegrateData
+  k_weight: 30                  # IntegrateData(k.weight=30) - default 100 OOMs at this dataset size
+  umap_clustering_dims: 10      # PCs used for RunUMAP/FindNeighbors - where both elbow plots flatten
+  clustering_resolution: 1      # FindClusters resolution used for the final C-labeling step
+
+cohort_c_labeling:
+  cluster_resolution: 1
+  purity_min_pct: 80            # majority A/B population must cover >= 80% of the cluster's A/B cells
+  min_ab_cells: 50              # cluster must contain >= 50 A/B cells for a label to be assigned
+
+ecm_pseudobulk:
+  min_cells_per_sample: 20      # donor x condition pseudobulk sample kept only if >= 20 cells
+  panel_genes: [COL1A1, COL1A2, COL3A1, COL5A1, COL6A1, COL6A2, FN1, SPARC, DCN, LUM]
+
+mesenchymal_markers:            # robustness check - excluded from the ECM panel itself
+  - RGS5
+  - PDGFRB
+  - ACTA2
+  - PDGFRA
+  - MYH11
+  - NOTCH3
+
+seeds:
+  qc_plot_shuffle_seed: 42      # R/qc_combined_ABC_figure.R - point draw-order shuffle (Fig. 1)
+  config_random_seed: 1         # RANDOM_SEED in config.R - defined for the project but not currently
+                                 # passed to any Seurat call; RunUMAP/FindNeighbors/FindClusters use
+                                 # Seurat's own internal default (seed.use = 42) throughout, since this
+                                 # project never overrode it. Recorded here for transparency rather than
+                                 # implying config_random_seed=1 was actually applied to those steps.
