@@ -1,0 +1,11 @@
+model	gene	logFC	CI.L	CI.R	P.Value	adj.P.Val	status
+a3_C_only	COL1A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	COL1A2	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	COL3A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	COL5A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	COL6A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	COL6A2	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	FN1	-0.791871717554824	-1.77824654418105	0.194503109071403	0.107662308716104	0.999465042634674	tested
+a3_C_only	SPARC	-0.245798090690142	-1.49795644114213	1.00636025976184	0.681621592836735	0.999465042634674	tested
+a3_C_only	DCN	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+a3_C_only	LUM	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)

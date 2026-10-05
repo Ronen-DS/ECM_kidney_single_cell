@@ -1,0 +1,11 @@
+model	gene	F	P.Value	adj.P.Val	status
+e_interaction	COL1A1	NA	NA	NA	filtered by filterByExpr (descriptive only)
+e_interaction	COL1A2	NA	NA	NA	filtered by filterByExpr (descriptive only)
+e_interaction	COL3A1	3.94898942621083	0.0250445078759112	0.162873715425295	tested
+e_interaction	COL5A1	NA	NA	NA	filtered by filterByExpr (descriptive only)
+e_interaction	COL6A1	NA	NA	NA	filtered by filterByExpr (descriptive only)
+e_interaction	COL6A2	NA	NA	NA	filtered by filterByExpr (descriptive only)
+e_interaction	FN1	3.90911581123246	0.0259323330257664	0.165635347854563	tested
+e_interaction	SPARC	4.49832652644749	0.0155679142905787	0.122468853764035	tested
+e_interaction	DCN	NA	NA	NA	filtered by filterByExpr (descriptive only)
+e_interaction	LUM	NA	NA	NA	filtered by filterByExpr (descriptive only)

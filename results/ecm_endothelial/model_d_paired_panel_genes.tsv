@@ -1,0 +1,11 @@
+model	gene	logFC	CI.L	CI.R	P.Value	adj.P.Val	status
+d_paired	COL1A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	COL1A2	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	COL3A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	COL5A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	COL6A1	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	COL6A2	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	FN1	0.641675799474711	-0.177081341938055	1.46043294088748	0.117917940573896	0.648213024189373	tested
+d_paired	SPARC	1.03652841712548	0.222323022332569	1.8507338119184	0.0151101676576785	0.301245666471042	tested
+d_paired	DCN	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)
+d_paired	LUM	NA	NA	NA	NA	NA	filtered by filterByExpr (descriptive only)

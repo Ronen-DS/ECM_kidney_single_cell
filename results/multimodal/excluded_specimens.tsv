@@ -1,0 +1,8 @@
+sample_id	donor_id	condition	matching_status	exclusion_reason	covered_by_other_aliquot
+CPT0000880001	C3L-00088	Tumor	no_author_bulk_link	No bulk RNA or protein data for this specific snRNA aliquot (author never profiled it at the bulk/protein level)	TRUE
+CPT0010100001	C3L-00416	Tumor	no_author_bulk_link	No bulk RNA or protein data for this specific snRNA aliquot (author never profiled it at the bulk/protein level)	TRUE
+CPT0086350004	C3L-00908	Tumor	different_parent_specimen	Protein aliquot is from a DIFFERENT parent specimen than this snRNA aliquot - not the same physical tissue piece; exclude from snRNA<->protein comparison specifically	FALSE
+CPT0014450005	C3N-00242	Tumor	multiple_protein_specimen_ids	Protein data maps ambiguously to >1 parent specimen - cannot determine which corresponds to this snRNA aliquot; exclude from snRNA<->protein comparison	FALSE
+CPT0025890002	C3N-00733	Tumor	no_author_bulk_link	No bulk RNA or protein data for this specific snRNA aliquot (author never profiled it at the bulk/protein level)	TRUE
+CPT0075120002	C3N-01200	Tumor	no_author_bulk_link	No bulk RNA or protein data for this specific snRNA aliquot (author never profiled it at the bulk/protein level)	TRUE
+CPT0075140002	C3N-01200	Tumor	no_author_bulk_link	No bulk RNA or protein data for this specific snRNA aliquot (author never profiled it at the bulk/protein level)	TRUE

@@ -1,0 +1,106 @@
+item	reported	reproduced	output_file	match
+Table 1: A specimens	34	34	filter_cohort_a_per_specimen.tsv	yes
+Table 1: A n_cells after QC	124,088	124088	filter_cohort_a_per_specimen.tsv	yes
+Table 1: A %% retained	87.4%	87.4%	qc_combined_ABC_counts.tsv	yes
+Table 1: B specimens	26	26	filter_cohort_b_per_specimen.tsv	yes
+Table 1: B n_cells after QC	120,752	120752	filter_cohort_b_per_specimen.tsv	yes
+Table 1: B %% retained	76.5%	76.5%	qc_combined_ABC_counts.tsv	yes
+Table 1: C specimens	13	13	filter_cohort_c_per_specimen.tsv	yes
+Table 1: C n_cells after QC	22,191	22191	filter_cohort_c_per_specimen.tsv	yes
+Table 1: C %% retained	75.2%	75.2%	qc_combined_ABC_counts.tsv	yes
+Table 1: smallest specimen A	1,138	1138	filter_cohort_a_per_specimen.tsv	yes
+Table 1: smallest specimen B	759	759	filter_cohort_b_per_specimen.tsv	yes
+Table 1: smallest specimen C	409	409	filter_cohort_c_per_specimen.tsv	yes
+Text: A initial nuclei	141,950	141950	qc_cohort_a_per_specimen.tsv	yes
+Text: B initial cells	157,881	157881	qc_cohort_b_per_specimen.tsv	yes
+Text: C initial cells	29,499	29499	qc_cohort_c_per_specimen.tsv	yes
+Text: A donors	25	25	filter_cohort_a_per_specimen.tsv	yes
+Text: C donors	8	8	filter_cohort_c_per_specimen.tsv	yes
+Text: A Adjacent Lymphoid retention at 2%% MT	13.9%	13.9%	qc_population_retention/retention_by_population_condition.tsv	yes
+Text: A overall retention at 5%% MT	94.5%	94.5%	qc_population_retention_A5pct/retention_by_population_condition.tsv	yes
+Text: A Adjacent Lymphoid retention at 5%% MT	48.6%	48.6%	qc_population_retention_A5pct/retention_by_population_condition.tsv	yes
+Text: GSM4819728 retention	55%	55%	qc_cohort_c_per_specimen.tsv + filter_cohort_c_per_specimen.tsv	yes
+Text: GSM4819726 retention	36%	36%	qc_cohort_c_per_specimen.tsv + filter_cohort_c_per_specimen.tsv	yes
+Text: clusters >=80%% pure (of 37)	33 of 37	33 of 37	ABC_cluster_majority_assignment.tsv	yes
+Text: clusters assigned to C (purity+n_ab)	32/37	32/37	ABC_cluster_majority_assignment.tsv	yes
+Text: C unresolved %%	10.8%	10.8%	merged_ABC_annotated.rds	yes
+Text: markers peaking in expected population (of 11, excl. NDUFA4L2/ACTA2 noted exceptions)	11/13 (2 exceptions: NDUFA4L2, ACTA2 -> Pericyte)	13/13 (11/11 of the 11 non-exception markers matched directly, NDUFA4L2/ACTA2 checked separately below)	marker_verification_by_label.tsv	yes
+Text: NDUFA4L2 peak population	Pericyte	Pericyte	marker_verification_by_label.tsv	yes
+Text: ACTA2 peak population	Pericyte	Pericyte	marker_verification_by_label.tsv	yes
+Text: Stromal_fibro_myo highest for N/10 genes	7/10	7/10	ecm_panel_by_population.tsv	yes
+Text: Endothelial SPARC %% expressing (combined)	64.5%	64.5%	ecm_panel_by_population.tsv	yes
+Text: SPARC highest population overall	Endothelial	Endothelial	ecm_panel_by_population.tsv	yes
+Text: Endothelial paired donors (A,B,C)	13 (A=2,B=8,C=3)	13 (A=2,B=8,C=3)	paired_coverage_ge20.tsv	yes
+Text: Pericyte paired donors (B,C)	11 (B=9,C=2)	11 (B=9,C=2)	paired_coverage_ge20.tsv	yes
+Text: Stromal_fibro_myo paired donors (>=20)	2 (A only)	2	paired_coverage_ge20.tsv	yes
+Text: Stromal_fibro_myo paired donors (>=10)	4	4	paired_coverage_ge10.tsv	yes
+Text: pseudobulk samples (donor x condition, >=20 cells)	48	48	pseudobulk_sample_table.tsv	yes
+Text: pseudobulk paired donors	13	13	pseudobulk_sample_table.tsv	yes
+Text: pseudobulk single-condition donors	22	22	pseudobulk_sample_table.tsv	yes
+Table 2 [A only]: donors	17 (2 + 15)	17 (2 + 15)	panel_summary.tsv	yes
+Table 2 [A only]: panel-sum logFC(CI),P	+0.11 (-0.92, 1.13), 0.83	+0.11 (-0.92, 1.13), 0.83	panel_summary.tsv	yes
+Table 2 [A only]: SPARC logFC(CI)	-0.08 (-1.21, 1.04)	-0.08 (-1.21, 1.04)	model_a_A_only_panel_genes.tsv	yes
+Table 2 [A only]: FN1 logFC(CI)	-0.23 (-1.48, 1.03)	-0.23 (-1.48, 1.03)	model_a_A_only_panel_genes.tsv	yes
+Table 2 [A only]: panel-sum after cleaning	-0.14 (-1.06, 0.77)	-0.14 (-1.06, 0.77)	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Table 2 [B only]: donors	11 (8 + 3)	11 (8 + 3)	panel_summary.tsv	yes
+Table 2 [B only]: panel-sum logFC(CI),P	+1.62 (1.24, 2.01), 9.3e-8	+1.62 (1.24, 2.01), 9.3e-08	panel_summary.tsv	yes
+Table 2 [B only]: SPARC logFC(CI)	+1.84 (1.47, 2.20)	+1.84 (1.47, 2.20)	model_a2_B_only_panel_genes.tsv	yes
+Table 2 [B only]: FN1 logFC(CI)	+1.27 (0.60, 1.94)	+1.27 (0.60, 1.94)	model_a2_B_only_panel_genes.tsv	yes
+Table 2 [B only]: panel-sum after cleaning	+1.63 (1.24, 2.02)	+1.63 (1.24, 2.02)	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Table 2 [C only]: donors	7 (3 + 4)	7 (3 + 4)	panel_summary.tsv	yes
+Table 2 [C only]: panel-sum logFC(CI),P	+0.06 (-1.60, 1.72), 0.94	+0.06 (-1.60, 1.72), 0.94	panel_summary.tsv	yes
+Table 2 [C only]: SPARC logFC(CI)	-0.25 (-1.50, 1.01)	-0.25 (-1.50, 1.01)	model_a3_C_only_panel_genes.tsv	yes
+Table 2 [C only]: FN1 logFC(CI)	-0.79 (-1.78, 0.19)	-0.79 (-1.78, 0.19)	model_a3_C_only_panel_genes.tsv	yes
+Table 2 [C only]: panel-sum after cleaning	+0.03 (-1.61, 1.66)	+0.03 (-1.61, 1.66)	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Table 2 [A+B]: donors	28 (10 + 18)	28 (10 + 18)	panel_summary.tsv	yes
+Table 2 [A+B]: panel-sum logFC(CI),P	+1.23 (0.71, 1.75), 3.0e-5	+1.23 (0.71, 1.75), 3e-05	panel_summary.tsv	yes
+Table 2 [A+B]: SPARC logFC(CI)	+1.27 (0.64, 1.90)	+1.27 (0.64, 1.90)	model_b_AB_panel_genes.tsv	yes
+Table 2 [A+B]: FN1 logFC(CI)	+0.86 (0.15, 1.56)	+0.86 (0.15, 1.56)	model_b_AB_panel_genes.tsv	yes
+Table 2 [A+B]: panel-sum after cleaning	+1.17 (0.66, 1.67)	+1.17 (0.66, 1.67)	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Table 2 [A+B+C]: donors	35 (13 + 22)	35 (13 + 22)	panel_summary.tsv	yes
+Table 2 [A+B+C]: panel-sum logFC(CI),P	+0.70 (0.12, 1.27), 0.018	+0.70 (0.12, 1.27), 0.018	panel_summary.tsv	yes
+Table 2 [A+B+C]: SPARC logFC(CI)	+0.88 (0.24, 1.53)	+0.88 (0.24, 1.53)	model_c_ABC_panel_genes.tsv	yes
+Table 2 [A+B+C]: FN1 logFC(CI)	+0.36 (-0.28, 1.00)	+0.36 (-0.28, 1.00)	model_c_ABC_panel_genes.tsv	yes
+Table 2 [A+B+C]: panel-sum after cleaning	+0.68 (0.09, 1.27)	+0.68 (0.09, 1.27)	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Table 2 [Paired only, A+B+C]: donors	13 (13 + 0)	13 (13 + 0)	panel_summary.tsv	yes
+Table 2 [Paired only, A+B+C]: panel-sum logFC(CI),P	+0.86 (-0.06, 1.78), 0.065	+0.86 (-0.06, 1.78), 0.065	panel_summary.tsv	yes
+Table 2 [Paired only, A+B+C]: SPARC logFC(CI)	+1.04 (0.22, 1.85)	+1.04 (0.22, 1.85)	model_d_paired_panel_genes.tsv	yes
+Table 2 [Paired only, A+B+C]: FN1 logFC(CI)	+0.64 (-0.18, 1.46)	+0.64 (-0.18, 1.46)	model_d_paired_panel_genes.tsv	yes
+Table 2 [Paired only, A+B+C]: panel-sum after cleaning	+0.84 (-0.06, 1.73)	+0.84 (-0.06, 1.73)	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Text: interaction P (SPARC)	0.016	0.016	model_e_interaction_panel_genes.tsv	yes
+Text: interaction P (FN1)	0.026	0.026	model_e_interaction_panel_genes.tsv	yes
+Text: interaction P (COL3A1)	0.025	0.025	model_e_interaction_panel_genes.tsv	yes
+Text: interaction BH-FDR range	0.12-0.17	0.12-0.17	model_e_interaction_panel_genes.tsv	yes
+Text: B paired donors SPARC positive	8/8	8/8	donor_level_diff.tsv	yes
+Text: B paired donors FN1 positive	7/8	7/8	donor_level_diff.tsv	yes
+Text: C paired donors panel-sum negative	3/3	3/3	donor_level_diff.tsv	yes
+Text: flagged fraction A Tumor	19.3%	19.3%	mesenchymal_flag_summary.tsv	yes
+Text: flagged fraction A Adjacent	19.2%	19.2%	mesenchymal_flag_summary.tsv	yes
+Text: flagged fraction B Tumor	32.4%	32.4%	mesenchymal_flag_summary.tsv	yes
+Text: flagged fraction B Adjacent	9.2%	9.2%	mesenchymal_flag_summary.tsv	yes
+Text: flagged fraction C Tumor	9.0%	9.0%	mesenchymal_flag_summary.tsv	yes
+Text: flagged fraction C Adjacent	8.1%	8.1%	mesenchymal_flag_summary.tsv	yes
+Text: FN1 A+B before cleaning (logFC, P)	+0.86, P=0.019	+0.86, P=0.019	model_b_AB_panel_genes.tsv	yes
+Text: FN1 A+B after cleaning (logFC, P)	+0.62, P=0.093	+0.62, P=0.093	clean_models_panel_sum_SPARC_FN1.tsv	yes
+Text: matched snRNA specimens (of 34)	27/34	27/34	matched_subset.tsv	yes
+Text: matched donors	24	24	matched_subset.tsv	yes
+Text: matched tumor/adjacent split	23 tumor, 4 adjacent	23 tumor, 4 adjacent	matched_subset.tsv	yes
+Text: bulk RNA paired donors	4	4	ecm_direction_paired_summary.tsv	yes
+Text: protein paired donors	3	3	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00079]: bulk SPARC	+2.07	+2.07	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00079]: bulk FN1	+3.51	+3.51	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00079]: protein SPARC	+1.78	+1.78	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00079]: protein FN1	+0.91	+0.91	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-01200]: bulk SPARC	+2.02	+2.02	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-01200]: bulk FN1	+5.17	+5.17	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-01200]: protein SPARC	+0.77	+0.77	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-01200]: protein FN1	+1.37	+1.37	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00088]: bulk SPARC	+1.51	+1.51	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00088]: bulk FN1	+1.00	+1.00	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00088]: protein SPARC	+0.52	+0.52	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3L-00088]: protein FN1	+0.38	+0.38	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-00242]: bulk SPARC	+0.89	+0.89	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-00242]: bulk FN1	+0.49	+0.49	ecm_direction_paired_summary.tsv	yes
+Table 3 [C3N-00242]: protein	excluded (2 parent specimens)	multiple_protein_specimen_ids	excluded_specimens.tsv	yes
+Text: unweighted 10-gene mean diff, bulk RNA	-0.42	-0.42	ecm_direction_paired_summary.tsv	yes
+Text: unweighted 10-gene mean diff, protein	+0.08	+0.08	ecm_direction_paired_summary.tsv	yes

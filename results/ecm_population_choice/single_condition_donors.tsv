@@ -1,0 +1,10 @@
+population	cohort	tumor_only_donors	adjacent_only_donors	note
+Stromal_fibro_myo	A	21	0	
+Stromal_fibro_myo	B	1	2	
+Stromal_fibro_myo	C	NA	NA	no cells assigned in C
+Pericyte	A	NA	NA	no label in A
+Pericyte	B	1	1	
+Pericyte	C	3	1	
+Endothelial	A	22	0	
+Endothelial	B	1	1	
+Endothelial	C	3	1	

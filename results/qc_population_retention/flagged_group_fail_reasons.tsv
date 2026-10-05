@@ -1,0 +1,9 @@
+cohort	major_population	condition	n_failing	nfeature_low	nfeature_high	ncount_low	percent_mt	specimen_dropped_only	top_reason
+A	Lymphoid	Adjacent	972	0	0	0	972	0	percent_mt
+A	Myeloid	Adjacent	400	0	0	0	400	0	percent_mt
+A	Lymphoid	Tumor	4093	0	0	0	4093	0	percent_mt
+A	Unresolved	Tumor	455	0	0	0	455	0	percent_mt
+A	Myeloid	Tumor	7618	0	0	0	7618	0	percent_mt
+B	Nonmalignant_epithelial	Adjacent	3268	733	38	610	3083	0	percent_mt
+B	Malignant_epithelial	Tumor	4183	1060	23	983	3529	0	percent_mt
+B	Lymphoid	Adjacent	6250	5622	0	3982	166	0	nfeature_low

@@ -1,0 +1,7 @@
+model	n_genes_universe	n_genes_tested	n_donors
+a_A_only	33514	8164	17
+a2_B_only	32738	4068	11
+a3_C_only	33660	959	7
+b_AB	20453	5635	28
+c_ABC	20233	5295	35
+d_paired	20233	2831	13

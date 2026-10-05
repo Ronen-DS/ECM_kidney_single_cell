@@ -1,0 +1,7 @@
+stage	status	runtime_sec	peak_mem_mb
+01-load-qc	rerun from raw inputs (clean session)	12295.3	19574.3
+02-integration	attempted from raw inputs, CRASHED (std::bad_alloc during IntegrateData, k.weight=30) after ~5h in one long session - not completed; abandoned, stage 02 checkpoint unchanged from the earlier successful run	NA	NA
+03-c-labeling	rerun (clean session, from existing checkpoints)	533.4	24026.6
+04-ecm-overview-population-choice	rerun (clean session, from existing checkpoints)	895.8	24135.1
+05-pseudobulk-models-robustness	rerun (fresh standalone process, clean uninterrupted timing)	932	12125.9
+06-linked-modalities	rerun (clean session, from existing checkpoints)	23.5	4021.8

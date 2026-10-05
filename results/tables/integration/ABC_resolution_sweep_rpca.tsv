@@ -1,0 +1,4 @@
+resolution	n_clusters	min_cluster_size	max_cluster_size
+0.3	20	471	60258
+0.5	26	470	40631
+1	37	444	23747
