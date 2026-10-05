@@ -126,9 +126,7 @@ notebook: the earlier A+B-only integration/baseline feasibility pass
 `rpca_umap_screen.R`, `rpca_clusters_umap.R`, `replot_elbow_ab.R`), superseded
 once A+B+C joint integration proved feasible, plus an early single-population
 coverage check superseded by `ecm_population_choice_coverage.R`
-(`stromal_donor_coverage.R`, `plot_by_population.R`). Harmony integration and
-the C-reference-mapping approach (both abandoned in favor of A+B+C joint RPCA
-integration) are **not included in this repository at all**.
+(`stromal_donor_coverage.R`, `plot_by_population.R`).
 
 ## Verification
 
