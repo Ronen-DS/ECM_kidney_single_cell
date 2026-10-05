@@ -143,8 +143,8 @@ timing/memory per stage.
 
 ## AI assistance
 
-*(placeholder - to be completed)*
+Claude Code wrote and ran most of the R code, from my specifications, and assembled this repository. All analytical decisions were mine, and AI suggestions were accepted only after I checked them against the data. Perplexity was used to check for support in the literature for biological aspects (for example endothelial involvement in kidney cancer) and for citation verification. Claude (chat) was used to assist in writing the report and Gemini helped find small textual errors. Consequential outputs were checked by comparing recomputed QC metrics with cohort B's author-supplied fields, cross-checking QC counts against Table 1, and verifying reported numbers against the outputs (results/report_check.tsv).
 
 ## Time spent
 
-*(placeholder - to be completed)*
+Approximately 6 hours of hands-on work, excluding prolonged computational runtime on a standard laptop configuration.
